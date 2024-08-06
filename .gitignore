@@ -1,19 +1,8 @@
 node_modules
 .cache/
 
-package-lock.json
-
-AOS.wasm
-
-build/aos
-
-build/llama.cpp
-
-libllama.a
-
-test2/AOS.js
-
 build/llamacpp
+process/libs
 
 **/*.so
 **/process.js
