@@ -55,6 +55,9 @@ cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
 # Remove .so files
 rm -rf ${AO_LLAMA_DIR}/*.so
 
+# Copy config.yml to the process directory
+cp ${SCRIPT_DIR}/config.yml ${PROCESS_DIR}/config.yml
+
 # Build the process module
 cd ${PROCESS_DIR} 
 docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-module
