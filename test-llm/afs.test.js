@@ -152,25 +152,25 @@ return Llama.info()
       getEnv())
     console.log(result.response)
     console.log("SIZE:", instance.HEAP8.length)
-    assert.ok(result.response.Output.data.output.length > 10)
+    assert.ok(result.response.Output.data.length > 10)
   })
 
   it.skip('AOS loads Phi-2', async () => {
     const result = await handle(getEval(`
   local Llama = require("llama")
   Llama.load('/data/kd34P4974oqZf2Db-hFTUiCipsU6CzbR6t-iJoQhKIo')
-  --Llama.setPrompt([[<|user|>Can you write a HelloWorld function in js<|end|><|assistant|>]])
+  --Llama.set_prompt([[<|user|>Can you write a HelloWorld function in js<|end|><|assistant|>]])
   return Llama.run(10)
   `), getEnv())
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.length > 10)
+    assert.ok(result.response.Output.data.length > 10)
   })
 
   it.skip('Can add tokens into context', async () => {
     const result = await handle(getEval(`
   local Llama = require("llama")
   Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
-  Llama.setPrompt([[<|user|>Tell me a great story<|assistant|>]])
+  Llama.set_prompt([[<|user|>Tell me a great story<|assistant|>]])
   local str = ""
   for i = 0, 100, 1 do
     str = str .. Llama.next()
@@ -184,18 +184,18 @@ return Llama.info()
   return str
   `), getEnv())
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.length > 10)
+    assert.ok(result.response.Output.data.length > 10)
   })
 
   it.skip('AOS runs Phi-3 Mini 4k Instruct', async () => {
     const result = await handle(getEval(`
 local Llama = require("llama")
 Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
-Llama.setPrompt([[<|user|>Tell me a story.<|end|><|assistant|>]])
+Llama.set_prompt([[<|user|>Tell me a story.<|end|><|assistant|>]])
 return Llama.run(80) 
   `), getEnv())
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.length > 10)
+    assert.ok(result.response.Output.data.length > 10)
   })
 
   it.skip('AOS runs Llama3 8B Instruct q4', async () => {
@@ -207,7 +207,7 @@ return Llama.run(80)
         getEnv()
       )
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.length >= 100)
+    assert.ok(result.response.Output.data.length >= 100)
   })
 
   it.skip('AOS runs Llama3 8B Instruct q8', async () => {
@@ -219,7 +219,7 @@ return Llama.run(80)
         getEnv()
       )
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.length > 10)
+    assert.ok(result.response.Output.data.length > 10)
   })
 
   it.skip('AOS runs CodeQwen intelligence test', async () => {
@@ -229,7 +229,7 @@ return Llama.run(80)
         getEnv()
       )
     console.log(result.response)
-    assert.ok(result.response.Output.data.output.includes("<|im_end|>"))
+    assert.ok(result.response.Output.data.includes("<|im_end|>"))
   })
 })
 
@@ -242,7 +242,7 @@ function getLua(model, len, prompt) {
   io.stderr:write([[Loading model...\n]])
   Llama.load('/data/${model}')
   io.stderr:write([[Loaded! Setting prompt...\n]])
-  Llama.setPrompt([[${prompt}]])
+  Llama.set_prompt([[${prompt}]])
   local result = ""
   io.stderr:write([[Running...\n]])
   for i = 0, ${len.toString()}, 1 do
