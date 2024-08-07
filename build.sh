@@ -3,7 +3,8 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 LLAMA_CPP_DIR="${SCRIPT_DIR}/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
-LIBS_DIR="${SCRIPT_DIR}/process/libs"
+PROCESS_DIR="${SCRIPT_DIR}/aos/process"
+LIBS_DIR="${PROCESS_DIR}/libs"
 
 AO_IMAGE="aoc:latest" # TODO: Change to remote image when ready
 
@@ -53,3 +54,11 @@ cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
 
 # Remove .so files
 rm -rf ${AO_LLAMA_DIR}/*.so
+
+# Build the process module
+cd ${PROCESS_DIR} 
+docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-module
+
+# Copy the process module to the test-llm directory
+cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/test-llm/process.wasm
+cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/test-llm/process.js

@@ -2,7 +2,7 @@ node_modules
 .cache/
 
 build/llamacpp
-process/libs
+aos/process/libs
 
 **/*.so
 **/process.js

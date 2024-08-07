@@ -2,16 +2,11 @@
 
 ## USAGE
 
-### Build Libs
+### Build
 
-First build llama cpp and ao-llama ( the bindings )
+Just run ./build.sh ( This will build the nessasary libraries inject them and compile the wasm)
 ```sh
-./build_libs.sh
-```
-
-Next build the wasm ( this also copies the process.js and process.wasm to the test-llm dir )
-```sh
-./build_wasm.sh
+./build.sh
 ```
 
 ### Testing

@@ -1,4 +1,0 @@
-preset: 'xxl'
-extra_compile_args: [ 
-  # '-I/src/libs/llamacpp', '-I/src/libs/llamacpp/common', '-I/src/libs/llama-bindings',
-  ]
