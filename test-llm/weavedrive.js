@@ -172,7 +172,15 @@ module.exports = function weaveDrive(mod, FS) {
       stream.lastReadPosition = stream.position
       return bytes_read
     },
-
+    close(fd) {
+      var stream = 0;
+      for (var i = 0; i < FS.streams.length; i++) {
+        if (FS.streams[i].fd === fd) {
+          stream = FS.streams[i]
+        }
+      }
+      // FS.close(stream)
+    },
     // Readahead cache functions
     readFromCache(stream, dst_ptr, length) {
       // Check if the cache has been invalidated by a seek

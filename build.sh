@@ -6,7 +6,7 @@ AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
 
-AO_IMAGE="p3rmaw3b/ao:0.1.1"
+AO_IMAGE="p3rmaw3b/ao:0.1.2"
 
 EMXX_CFLAGS="-s MEMORY64=1 -O3 -msimd128 -fno-rtti -DNDEBUG \
 	-flto=full -s BUILD_AS_WORKER=1 -s EXPORT_ALL=1 \
