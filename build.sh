@@ -63,5 +63,5 @@ cd ${PROCESS_DIR}
 docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-module
 
 # Copy the process module to the test-llm directory
-cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/test-llm/process.wasm
-cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/test-llm/process.js
+cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/tests/process.wasm
+# cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/test-llm/process.js
