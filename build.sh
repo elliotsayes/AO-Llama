@@ -51,6 +51,7 @@ cp ${LLAMA_CPP_DIR}/common/libcommon.a $LIBS_DIR/llamacpp/common/libcommon.a
 mkdir -p $LIBS_DIR/ao-llama
 cp ${AO_LLAMA_DIR}/libaollama.so $LIBS_DIR/ao-llama/libaollama.so
 cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
+cp ${AO_LLAMA_DIR}/Llama.lua  ${PROCESS_DIR}/Llama.lua
 
 # Remove .so files
 rm -rf ${AO_LLAMA_DIR}/*.so

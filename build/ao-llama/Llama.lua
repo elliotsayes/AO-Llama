@@ -1,5 +1,5 @@
 local Llama = {}
-Llama.backend = require("_llama")
+Llama.backend = require("llama")
 
 function Llama.info()
     return "A decentralized LLM inference engine, built on top of llama.cpp."
