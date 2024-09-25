@@ -24,3 +24,6 @@ cd test-llm
 yarn # or npm i
 yarn test # or npm run test
 ```
+
+### WASM-Metering
+Need to update the ao-loader with newest version

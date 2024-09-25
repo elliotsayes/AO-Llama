@@ -1,7 +1,7 @@
 
 import { test } from 'node:test'
 import * as assert from 'node:assert'
-import AoLoader from '@permaweb/ao-loader'
+import AoLoader from '@permaweb/ao-loader' // Need new version of AO Loader
 import fs from 'fs'
 import weaveDrive from './weavedrive.js';
 const AdmissableList =

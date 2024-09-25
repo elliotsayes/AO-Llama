@@ -6,14 +6,9 @@ AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
 
-AO_IMAGE="p3rmaw3b/ao:0.1.2"
+AO_IMAGE="p3rmaw3b/ao:0.1.2" # Needs new version
 
-EMXX_CFLAGS="-s MEMORY64=1 -O3 -msimd128 -fno-rtti -DNDEBUG \
-	-flto=full -s BUILD_AS_WORKER=1 -s EXPORT_ALL=1 \
-	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
-	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
-	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
-	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental"
+EMXX_CFLAGS="-s MEMORY64=1"
 
 # Clone llama.cpp if it doesn't exist
 rm -rf ${LLAMA_CPP_DIR}
@@ -65,4 +60,13 @@ docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-mod
 
 # Copy the process module to the test-llm directory
 cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/tests/process.wasm
+cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
 # cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/test-llm/process.js
+
+# TODO: Go over these flags 
+# "-s MEMORY64=1 -O3 -msimd128 -fno-rtti -DNDEBUG \
+# 	-flto=full -s BUILD_AS_WORKER=1 -s EXPORT_ALL=1 \
+# 	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
+# 	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
+# 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
+# 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental"
