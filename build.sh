@@ -6,7 +6,7 @@ AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
 
-AO_IMAGE="p3rmaw3b/ao:0.1.2" # Needs new version
+AO_IMAGE="p3rmaw3b/ao:0.1.3" # Needs new version
 
 EMXX_CFLAGS="-s MEMORY64=1"
 
