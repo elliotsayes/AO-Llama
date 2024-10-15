@@ -15,6 +15,7 @@ const AdmissableList =
     "Pr2YVrxd7VwNdg6ekC0NXWNKXxJbfTlHhhlrKbAd1dA", // Llama3 8B Instruct q4
     "jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI", // Llama3 8B Instruct q8
     "eZFVj31sV6Ou8FRWqMVEQ4r-9vQqp4B3U-u2tisg_PM", // all-MiniLM-L6-v2.Q4_0.gguf
+    "kI8VWHU-5aFGKY6JXxxFYFx8PZy4p_kXczdOZdGK7vg", // nomic-embed-text-v1.5.Q4_0.gguf
   ]
 
 
@@ -69,7 +70,7 @@ test('llama', async () => {
     Data: `
     local Llama = require(".Llama")
     io.stderr:write([[Loading model...\n]])
-    local result = Llama.load("/data/eZFVj31sV6Ou8FRWqMVEQ4r-9vQqp4B3U-u2tisg_PM")
+    local result = Llama.load("/data/kI8VWHU-5aFGKY6JXxxFYFx8PZy4p_kXczdOZdGK7vg")
     io.stderr:write([[Loaded! Running Embed...\n]])
     local str1 = Llama.embed("Once upon a time, in a land far far away, there was a")
     io.stderr:write([[Embedded #1!\n]])
