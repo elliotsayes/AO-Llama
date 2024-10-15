@@ -47,6 +47,14 @@ static int l_llama_next(lua_State *L) {
   return 1;
 }
 
+static int l_llama_embed(lua_State *L) {
+  const char* text = luaL_checkstring(L, 1);
+  char* result = llama_embed((char*) text);
+  lua_pushstring(L, result);
+  free(result);
+  return 1;
+}
+
 static int l_llama_stop(lua_State *L) {
   llama_stop();
   return 0;
@@ -60,6 +68,7 @@ int luaopen_llama(lua_State *L) {
       {"add", l_llama_add},
       {"run", l_llama_run},
       {"next", l_llama_next},
+      {"embed", l_llama_embed},
       {"stop", l_llama_stop},
       {NULL, NULL}  // Sentinel to indicate end of array
   };
