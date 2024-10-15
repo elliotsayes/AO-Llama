@@ -61,7 +61,7 @@ test('llama', async () => {
     Data: `
     local Llama = require(".Llama")
     io.stderr:write([[Loading model...\n]])
-    local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
+    local result = Llama.load("/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo")
     io.stderr:write([[Loaded! Setting prompt 1...\n]])
     Llama.setPrompt("Once upon a time")
     io.stderr:write([[Prompt set! Running...\n]])
