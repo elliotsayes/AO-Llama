@@ -333,7 +333,7 @@ char* llama_embed(char* text) {
     //     ),
     // NULL);
 
-    char* output = (char*)malloc(2048 * 8);
+    char* output = (char*)malloc(n_prompts * n_embd * 16 + 1);
     int output_len = 0;
     // print the first part of the embeddings or for a single prompt, the full embedding
     // fprintf(stdout, "\n");
