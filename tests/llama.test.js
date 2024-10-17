@@ -48,6 +48,28 @@ test('llama', async () => {
       ]
     }
   }
+  // const msg = {
+  //   Target: 'AOS',
+  //   From: 'FOOBAR',
+  //   Owner: 'FOOBAR',
+  //   ['Block-Height']: "1000",
+  //   Id: "1234xyxfoo",
+  //   Module: "WOOPAWOOPA",
+  //   Tags: [
+  //     { name: 'Action', value: 'Eval' }
+  //   ],
+  //   Data: `
+  //   local Llama = require(".Llama")
+  //   io.stderr:write([[Loading model...\n]])
+  //   local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
+  //   io.stderr:write([[Loaded! Setting prompt 1...\n]])
+  //   Llama.setPrompt("Once upon a time")
+  //   io.stderr:write([[Prompt set! Running...\n]])
+  //   local str = Llama.run(30)
+  //   return str
+  //   `
+  // }
+
   const msg = {
     Target: 'AOS',
     From: 'FOOBAR',
@@ -59,14 +81,8 @@ test('llama', async () => {
       { name: 'Action', value: 'Eval' }
     ],
     Data: `
-    local Llama = require(".Llama")
-    io.stderr:write([[Loading model...\n]])
-    local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
-    io.stderr:write([[Loaded! Setting prompt 1...\n]])
-    Llama.setPrompt("Once upon a time")
-    io.stderr:write([[Prompt set! Running...\n]])
-    local str = Llama.run(30)
-    return str
+    local metering = require("metering")
+    print(metering.gasUsed())
     `
   }
 
