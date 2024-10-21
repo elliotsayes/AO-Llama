@@ -25,6 +25,10 @@ function Llama.add(str)
     Llama.backend.add(str)
 end
 
+function Llama.embed(str)
+    return Llama.backend.embed(str)
+end
+
 function Llama.stop()
     Llama.backend.stop()
 end

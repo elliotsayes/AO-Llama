@@ -13,7 +13,10 @@ const AdmissableList =
     "ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo", // Phi-3 Mini 4k Instruct
     "sKqjvBbhqKvgzZT4ojP1FNvt4r_30cqjuIIQIr-3088", // CodeQwen 1.5 7B Chat q3
     "Pr2YVrxd7VwNdg6ekC0NXWNKXxJbfTlHhhlrKbAd1dA", // Llama3 8B Instruct q4
-    "jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI"  // Llama3 8B Instruct q8
+    "jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI", // Llama3 8B Instruct q8
+    "eZFVj31sV6Ou8FRWqMVEQ4r-9vQqp4B3U-u2tisg_PM", // all-MiniLM-L6-v2.Q4_0.gguf
+    "kI8VWHU-5aFGKY6JXxxFYFx8PZy4p_kXczdOZdGK7vg", // nomic-embed-text-v1.5.Q4_0.gguf
+    "flDEjvddFftn_2VoXBYPz44jeNoWgcQrVirBlmuARX4", // mxbai-embed-large-v1-f16.gguf
   ]
 
 
@@ -26,7 +29,14 @@ const options = {
   mode: "test",
   blockHeight: 100,
   spawn: {
-    "Scheduler": "TEST_SCHED_ADDR"
+    "Scheduler": "TEST_SCHED_ADDR",
+  },
+  Module: {
+    Id: 'WOOPAWOOPA',
+    Owner: 'FOOBAR',
+    Tags: [
+      { name: 'Memory-Limit', value: '15-gb' }
+    ],
   },
   Process: {
     Id: 'AOS',
@@ -48,28 +58,6 @@ test('llama', async () => {
       ]
     }
   }
-  // const msg = {
-  //   Target: 'AOS',
-  //   From: 'FOOBAR',
-  //   Owner: 'FOOBAR',
-  //   ['Block-Height']: "1000",
-  //   Id: "1234xyxfoo",
-  //   Module: "WOOPAWOOPA",
-  //   Tags: [
-  //     { name: 'Action', value: 'Eval' }
-  //   ],
-  //   Data: `
-  //   local Llama = require(".Llama")
-  //   io.stderr:write([[Loading model...\n]])
-  //   local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
-  //   io.stderr:write([[Loaded! Setting prompt 1...\n]])
-  //   Llama.setPrompt("Once upon a time")
-  //   io.stderr:write([[Prompt set! Running...\n]])
-  //   local str = Llama.run(30)
-  //   return str
-  //   `
-  // }
-
   const msg = {
     Target: 'AOS',
     From: 'FOOBAR',
@@ -83,6 +71,15 @@ test('llama', async () => {
     Data: `
     local metering = require("metering")
     print(metering.gasUsed())
+    local Llama = require(".Llama")
+    io.stderr:write([[Loading model...\n]])
+    local result = Llama.load("/data/flDEjvddFftn_2VoXBYPz44jeNoWgcQrVirBlmuARX4")
+    io.stderr:write([[Loaded! Running Embed...\n]])
+    local str1 = Llama.embed("Once upon a time, in a land far far away, there was a")
+    io.stderr:write([[Embedded #1!\n]])
+    local str2 = Llama.embed("Examples of technical debt include legacy code, insufficient testing, hard-coded values, outdated libraries, and more.")
+    io.stderr:write([[Embedded #2!\n]])
+    return str1 .. ' || ' .. str2
     `
   }
 

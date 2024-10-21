@@ -10,6 +10,7 @@ int llama_set_prompt(char* prompt);
 char* llama_run(int len);
 char* llama_next();
 int llama_add(char* new_string);
+char* llama_embed(char* text);
 void llama_stop();
 
 #endif // LLAMA_RUN_H
