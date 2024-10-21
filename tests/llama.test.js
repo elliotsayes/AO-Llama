@@ -69,6 +69,8 @@ test('llama', async () => {
       { name: 'Action', value: 'Eval' }
     ],
     Data: `
+    local metering = require("metering")
+    print(metering.gasUsed())
     local Llama = require(".Llama")
     io.stderr:write([[Loading model...\n]])
     local result = Llama.load("/data/flDEjvddFftn_2VoXBYPz44jeNoWgcQrVirBlmuARX4")
