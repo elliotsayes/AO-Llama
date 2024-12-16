@@ -1,5 +1,9 @@
 node_modules
 .cache/
+.vscode/
+server/*
+!server/README.md
+!server/start_local_server.sh
 
 build/llamacpp
 aos/process/libs
@@ -9,3 +13,5 @@ aos/process/libs
 **/process.wasm
 **/package-lock.json
 **/yarn.lock
+
+*wallet.json

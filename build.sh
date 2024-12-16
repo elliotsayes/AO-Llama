@@ -6,9 +6,9 @@ AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
 
-AO_IMAGE="p3rmaw3b/ao:0.1.2" # Needs new version
+AO_IMAGE="p3rmaw3b/ao:0.1.4" # Needs new version
 
-EMXX_CFLAGS="-s MEMORY64=1"
+EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 
 # Clone llama.cpp if it doesn't exist
 rm -rf ${LLAMA_CPP_DIR}
@@ -28,7 +28,7 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
 		"cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
 
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
-		"cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'" 
+		"cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8" 
 
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp  -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
 		"cd /ao-llama && ./build.sh"
@@ -48,6 +48,9 @@ cp ${AO_LLAMA_DIR}/libaollama.so $LIBS_DIR/ao-llama/libaollama.so
 cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
 cp ${AO_LLAMA_DIR}/Llama.lua  ${PROCESS_DIR}/Llama.lua
 
+# Copy $LIBS_DIR to ${SCRIPT_DIR}/libs
+cp -r $LIBS_DIR ${SCRIPT_DIR}/libs
+
 # Remove .so files
 rm -rf ${AO_LLAMA_DIR}/*.so
 
@@ -60,13 +63,8 @@ docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-mod
 
 # Copy the process module to the test-llm directory
 cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/tests/process.wasm
-cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
-# cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/test-llm/process.js
 
-# TODO: Go over these flags 
-# "-s MEMORY64=1 -O3 -msimd128 -fno-rtti -DNDEBUG \
-# 	-flto=full -s BUILD_AS_WORKER=1 -s EXPORT_ALL=1 \
-# 	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
-# 	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
-# 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
-# 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental"
+# If the process.js file exists, copy it to the test-llm directory
+if [ -f "${PROCESS_DIR}/process.js" ]; then
+	cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
+fi
